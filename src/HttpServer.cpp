@@ -27,6 +27,9 @@ void HttpServer::onMessage(const TcpServer::TcpConnectionPtr &conn,TcpConnection
     if(head.substr(b,e-b) == "GET") {
         doGet(conn,head);    
     }
+    else{
+        doPost(conn,head);
+    }
 }
 
 void HttpServer::start() 
