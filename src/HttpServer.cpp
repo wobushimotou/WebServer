@@ -74,11 +74,35 @@ void HttpServer::doGet(const TcpServer::TcpConnectionPtr &conn,std::string head)
                               "Connection: keep-alive\r\n" + \
                               "Cache-Control:max-age=-1\r\n" + \
                               "Server: nginx/1.8.0\r\n"+"\r\n";
+    
 
     //发送响应头
     conn->send(Requesthead);
     //发送资源
     conn->send(data[filename]);
+    //断开连接
+    conn->connectDestoryed();
+}
+
+void HttpServer::doPost(const TcpServer::TcpConnectionPtr &conn,std::string head) {
+    std::string data;    
+    while(true) {
+        int flag = 0;
+        for(auto p = head.rbegin();*p == '\r' || *p == '\n';++p,++flag)
+            data.push_back(*p);
+
+        if(flag == 4)
+            break;
+    }
+
+
+    std::string Requesthead = std::string("HTTP/1.1 200 OK\r\n")+ \
+                              "Connection: keep-alive\r\n" + \
+                              "Cache-Control:max-age=-1\r\n" + \
+                              "Server: nginx/1.8.0\r\n"+"\r\n";
+
+    //发送响应头
+    conn->send(Requesthead);
     //断开连接
     conn->connectDestoryed();
 }

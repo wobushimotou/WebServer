@@ -14,6 +14,7 @@ private:
     void onMessage(const TcpServer::TcpConnectionPtr &conn,TcpConnection::BufferPtr buf,size_t);
     int ReadFile(std::string filename);
     void doGet(const TcpServer::TcpConnectionPtr &conn,std::string head);
+    void doPost(const TcpServer::TcpConnectionPtr &conn,std::string head);
 
     std::string onGet(std::string buff);
     TcpServer server;
