@@ -4,18 +4,8 @@
 #include "Buffer.h"
 #include <signal.h>
 #include <fstream>
-void signal_handle(int signal_num) {
-    printf("非正常退出\n");
-}
-
-void signal_handle2(int sig_num) {
-    printf("错误退出,当前线程id为%ld",syscall(SYS_gettid));
-    exit(0);
-}
 using namespace std;
 
-void onConnection1(std::shared_ptr<TcpConnection> conn) {
-}
 
 void Construct(string &s,string &head);
 void onMessage1(std::shared_ptr<TcpConnection> conn,Buffer *data,size_t n) {
